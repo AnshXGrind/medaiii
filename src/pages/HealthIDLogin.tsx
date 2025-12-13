@@ -91,7 +91,7 @@ export default function HealthIDLogin() {
   };
 
   const handleCreateNew = () => {
-    navigate('/health-id-demo');
+    navigate('/create-health-id');
   };
 
   return (

@@ -255,7 +255,7 @@ export default function CreateHealthID() {
       const stateCode = stateEntry ? stateEntry[0] : '01'; // Default to 01 if not found
 
       // Generate unique Health ID using the utility function
-      const healthId = await generateHealthId(stateCode);
+      const healthId = await generateHealthId(stateCode, { skipRemoteCheck: true });
 
       setGeneratedHealthId(healthId);
       setHealthIdCreated(true);

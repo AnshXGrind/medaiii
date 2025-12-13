@@ -5,6 +5,50 @@
 
 import { supabase } from '@/integrations/supabase/client';
 
+const DEFAULT_ATTEMPTS = 12;
+const DEFAULT_TIMEOUT_MS = 1200;
+
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+function randomDigits(length: number): string {
+  if (typeof crypto !== 'undefined' && 'getRandomValues' in crypto) {
+    const array = new Uint32Array(length);
+    crypto.getRandomValues(array);
+    return Array.from(array)
+      .map((num) => (num % 10).toString())
+      .join('');
+  }
+  return Array.from({ length }, () => Math.floor(Math.random() * 10)).join('');
+}
+
+async function checkHealthIdExists(healthId: string, timeoutMs: number) {
+  if (!supabase) return 'not_found' as const;
+
+  try {
+    const supabasePromise = supabase
+      .from('health_ids')
+      .select('health_id_number')
+      .eq('health_id_number', healthId)
+      .maybeSingle();
+
+    const timeoutPromise = new Promise((resolve) =>
+      setTimeout(() => resolve('timeout'), timeoutMs)
+    );
+
+    const result = (await Promise.race([supabasePromise, timeoutPromise])) as
+      | { data: { health_id_number: string } | null; error: any }
+      | 'timeout';
+
+    if (result === 'timeout') return 'timeout' as const;
+    if ('error' in result && result.error) return 'error' as const;
+    if ('data' in result && result.data) return 'exists' as const;
+    return 'not_found' as const;
+  } catch (error) {
+    console.warn('Health ID existence check failed, continuing with local generation:', error);
+    return 'error' as const;
+  }
+}
+
 /**
  * Generate a unique 14-digit Health ID
  * Format: XX-XXXX-XXXX-XXXX
@@ -12,42 +56,76 @@ import { supabase } from '@/integrations/supabase/client';
  * Next 4 digits: District code
  * Next 8 digits: Unique number
  */
-export async function generateHealthId(stateCode: string = '01'): Promise<string> {
-  const districtCode = Math.floor(1000 + Math.random() * 9000).toString();
-  
-  // Generate unique 8-digit number
-  let uniqueNumber: string;
-  let healthId: string;
-  let isUnique = false;
-  
-  // Try up to 10 times to generate a unique ID
-  for (let attempt = 0; attempt < 10; attempt++) {
-    uniqueNumber = Math.floor(10000000 + Math.random() * 90000000).toString();
-    
-    // Format: XX-XXXX-XXXX-XXXX
+export async function generateHealthId(
+  stateCode: string = '01',
+  options?: { skipRemoteCheck?: boolean; maxAttempts?: number; timeoutMs?: number }
+): Promise<string> {
+  const attempts = options?.maxAttempts ?? DEFAULT_ATTEMPTS;
+  const timeoutMs = options?.timeoutMs ?? DEFAULT_TIMEOUT_MS;
+
+  const districtCode = randomDigits(4);
+  const localCache = new Set<string>();
+
+  for (let attempt = 0; attempt < attempts; attempt++) {
+    const uniqueNumber = randomDigits(8);
     const part1 = uniqueNumber.slice(0, 4);
     const part2 = uniqueNumber.slice(4, 8);
-    healthId = `${stateCode}-${districtCode}-${part1}-${part2}`;
-    
-    // Check if ID already exists
-    const { data, error } = await supabase
-      .from('health_ids')
-      .select('health_id_number')
-      .eq('health_id_number', healthId)
-      .single();
-    
-    if (error && error.code === 'PGRST116') {
-      // No matching row found - ID is unique
-      isUnique = true;
-      break;
+    const healthId = `${stateCode}-${districtCode}-${part1}-${part2}`;
+
+    if (localCache.has(healthId)) continue;
+    localCache.add(healthId);
+
+    if (options?.skipRemoteCheck) {
+      return healthId;
     }
+
+    const existence = await checkHealthIdExists(healthId, timeoutMs);
+
+    if (existence === 'exists') {
+      continue;
+    }
+
+    // Accept on not_found, timeout, or error to avoid freezing UX
+    return healthId;
   }
-  
-  if (!isUnique) {
-    throw new Error('Failed to generate unique Health ID after 10 attempts');
+
+  throw new Error('Failed to generate unique Health ID after multiple attempts');
+}
+
+export async function generateHealthIdsBatch(
+  count: number = 100,
+  stateCode: string = '01',
+  options?: { skipRemoteCheck?: boolean; timeoutMs?: number }
+): Promise<string[]> {
+  const ids: string[] = [];
+  const seen = new Set<string>();
+
+  for (let i = 0; i < count; i++) {
+    const id = await generateHealthId(stateCode, {
+      skipRemoteCheck: options?.skipRemoteCheck ?? true,
+      timeoutMs: options?.timeoutMs,
+      maxAttempts: DEFAULT_ATTEMPTS,
+    });
+
+    if (seen.has(id)) {
+      // Very unlikely with 8 random digits; retry once then continue
+      const retry = await generateHealthId(stateCode, {
+        skipRemoteCheck: true,
+        maxAttempts: DEFAULT_ATTEMPTS,
+        timeoutMs: options?.timeoutMs,
+      });
+      ids.push(retry);
+      seen.add(retry);
+    } else {
+      ids.push(id);
+      seen.add(id);
+    }
+
+    // Small pause to avoid identical timestamps in rare environments
+    await sleep(2);
   }
-  
-  return healthId!;
+
+  return ids;
 }
 
 /**

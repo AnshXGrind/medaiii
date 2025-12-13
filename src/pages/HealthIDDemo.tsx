@@ -30,7 +30,7 @@ export default function HealthIDDemo() {
   const handleGenerateId = async () => {
     try {
       const stateCode = getStateCode('Maharashtra');
-      const id = await generateHealthId(stateCode);
+      const id = await generateHealthId(stateCode, { skipRemoteCheck: true });
       setGeneratedId(id);
       toast.success('Health ID generated!');
     } catch (error) {

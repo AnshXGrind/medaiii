@@ -14,6 +14,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Shield, Calendar, FileText, CheckCircle2, Info, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { Progress } from "@/components/ui/progress";
+import { generateHealthId } from "@/lib/universalHealthId";
 
 interface HealthIdCreationDialogProps {
   open: boolean;
@@ -78,7 +79,7 @@ export const HealthIdCreationDialog = ({
     }
   };
 
-  const generateHealthId = async () => {
+  const handleGenerateHealthId = async () => {
     if (!primaryDocNumber) {
       toast.error("Please enter your document number");
       return;
@@ -90,10 +91,10 @@ export const HealthIdCreationDialog = ({
     try {
       // Simulate verification process with progress
       const steps = [
-        { msg: "Verifying document...", duration: 800 },
-        { msg: "Checking government database...", duration: 1000 },
-        { msg: "Generating Health ID...", duration: 700 },
-        { msg: "Securing your data...", duration: 500 },
+        { msg: "Verifying document...", duration: 400 },
+        { msg: "Checking secure records...", duration: 450 },
+        { msg: "Generating Health ID...", duration: 350 },
+        { msg: "Securing your data...", duration: 300 },
       ];
 
       for (let i = 0; i < steps.length; i++) {
@@ -102,11 +103,7 @@ export const HealthIdCreationDialog = ({
         await new Promise(resolve => setTimeout(resolve, steps[i].duration));
       }
 
-      // Generate Health ID (14 digits)
-      const timestamp = Date.now().toString();
-      const random = Math.floor(Math.random() * 10000).toString().padStart(4, "0");
-      const healthId = (timestamp.slice(-10) + random).slice(0, 14);
-      const formattedHealthId = healthId.match(/.{1,4}/g)?.join("-") || healthId;
+      const formattedHealthId = await generateHealthId(undefined, { skipRemoteCheck: true });
 
       setStep(3);
       toast.success("Health ID generated successfully!");
@@ -115,7 +112,7 @@ export const HealthIdCreationDialog = ({
       setTimeout(() => {
         onHealthIdGenerated(formattedHealthId);
         resetAndClose();
-      }, 2000);
+      }, 800);
 
     } catch (error) {
       toast.error("Verification failed. Please try again.");
@@ -257,7 +254,7 @@ export const HealthIdCreationDialog = ({
                   Back
                 </Button>
                 <Button
-                  onClick={generateHealthId}
+                  onClick={handleGenerateHealthId}
                   disabled={verifying || !primaryDoc || !primaryDocNumber}
                   className="flex-1"
                 >
