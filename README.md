@@ -1,232 +1,128 @@
-# 🏥 MED-AID SAARTHI - Revolutionary Healthcare Platform
+# MED-AID SAARTHI
 
-> **Bridging the Healthcare Gap in Rural & Urban India with AI, Privacy & Government Integration**
+A privacy-first healthcare platform focused on bridging care gaps across India. The project delivers digital health IDs, appointment workflows, emergency routing, and privacy-aware data handling with Supabase-backed storage and a Vite + React frontend.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Security: Zero Raw Aadhaar](https://img.shields.io/badge/Security-Zero%20Raw%20Aadhaar-green.svg)](https://github.com)
-[![NDHM: Integrated](https://img.shields.io/badge/NDHM-Integrated-orange.svg)](https://github.com)
+## Problem Statement
 
-## 📚 Strategic Documentation
+Access to secure, interoperable healthcare records is limited across many regions. MED-AID SAARTHI aims to provide a unified, privacy-conscious experience for patients, doctors, and administrators while aligning with ABHA/NDHM standards and minimizing exposure of sensitive identifiers.
 
-**New to the project? Start here:**
-- 🎯 **[MVP Scope](./MVP_SCOPE.md)** - What we're building and why (3-6 month plan)
-- 🚀 **[Quick Start Guide](./QUICK_START.md)** - Your 7-day implementation plan
-- 🗺️ **[Technical Roadmap](./ROADMAP.md)** - 6/12/18-month strategic plan
-- 🏛️ **[Government Integration](./GOVERNMENT_INTEGRATION.md)** - ABDM APIs and compliance
-- 🔐 **[Security & Compliance](./SECURITY_COMPLIANCE.md)** - DPDP Act and audit checklist
-- 💼 **[Pitch Deck](./PITCH_DECK.md)** - Investor and government presentation
+## Features
 
-**For developers:**
-- 📖 [Deployment Guide](./DEPLOYMENT.md)
-- 🔧 [Storage Setup](./STORAGE_SETUP.md)
-- 🆔 [Aadhaar Integration](./AADHAAR_INTEGRATION.md)
-- 🏥 [Sample Doctors Setup](./SAMPLE_DOCTORS_SETUP.md)
-- 🌾 [Village Mode Features](./VILLAGE_MODE_FEATURES.md)
-- 📋 [System Overview](./SYSTEM_OVERVIEW.md)
+- Secure health ID creation with hashed Aadhaar tokens and last-4 display only
+- Patient and doctor dashboards with routing, appointments, and records views
+- Emergency assistance with location-based hospital discovery
+- Vaccination reminders and offers modules
+- Multi-language support via shared language context
+- Progressive Web App install prompts for mobile-first access
 
-## 🌟 Revolutionary Features
+## Architecture and Tech Stack
 
-### 🔐 **World-Class Privacy & Security**
+- Frontend: React 18 + TypeScript, Vite, React Router, TanStack Query
+- UI: shadcn-ui components, Radix primitives, Tailwind CSS
+- Data: Supabase (PostgreSQL, RLS) and Supabase Realtime where enabled
+- Mapping: Google Maps / OpenStreetMap integrations (see `integrations/`)
+- PWA: Vite PWA plugin and `PWAInstallPrompt` component
+- Optional services: `backend-modules` for search and supporting APIs
 
-#### Zero Raw Aadhaar Storage (CRITICAL DIFFERENTIATOR)
-- ✅ **NEVER stores full Aadhaar numbers**
-- ✅ **Only last 4 digits + SHA-256 one-way hash**
-- ✅ **Irreversible encryption** - cannot be decrypted
-- ✅ **GDPR/Privacy compliant** from day one
-- ✅ **Blockchain-lite audit trail** - every Aadhaar access logged
-
-**Why this matters:** Unlike traditional systems that store sensitive IDs in plain text, we protect citizen privacy at the architecture level. This builds trust and meets international privacy standards.
-
-#### Anonymous Health Mode
-- 🎭 **Hide identity for sensitive consultations**
-- 🔒 **End-to-end privacy for personal health issues**
-- 💚 **Shows empathy + ethical tech design**
-
-### 🇮🇳 **Government Integration**
-
-#### ABHA/NDHM Integration (Ayushman Bharat)
-- 🏥 **Links to National Digital Health Mission**
-- 📱 **ABHA number integration** (14-digit health ID)
-- 🔗 **ABHA address** (username@abdm)
-- 📊 **Cross-hospital health record access**
-- 💳 **Insurance claim integration ready**
-
-**Impact:** Connects rural patients to India's digital health ecosystem, enabling seamless healthcare across all facilities.
-
-### 🤖 **AI-Powered Intelligence**
-
-#### AI Health Insights Dashboard
-- 📊 **Real-time disease outbreak prediction**
-- 📈 **District-level health analytics**
-- 🗺️ **Geo-mapped health trends**
-- 🎯 **ML-powered recommendations** for govt action
-- 📉 **Aggregated, anonymized data** (privacy-protected)
-
-**Example Insight:** *"80% of fever cases in past 7 days from East Delhi → AI recommends increasing dengue prevention measures"*
-
-### 🚨 **Emergency Response System**
-
-#### Geo-Mapping + Emergency Routing
-- 🗺️ **Google Maps/OpenStreetMap integration**
-- 🚑 **Finds nearest PHC, hospital, ambulance**
-- ⏱️ **Real-time ETA calculation**
-- 📍 **GPS-based location detection**
-- 📞 **One-tap emergency calls** (108/102/104)
-- 🔔 **Push notifications to nearest doctors**
-
-### 💊 **Comprehensive Healthcare Features**
-
-- 🏥 **Hospital Finder** with pincode-accurate search
-- 👨‍⚕️ **Doctor Appointment Booking** (video & in-person)
-- 💬 **AI Symptom Analysis** (local fallback + cloud AI)
-- 🗣️ **8 Indian Languages** supported
-- 📱 **Mobile-first design** (optimized for rural areas)
-- 🌙 **Dark mode** for accessibility
-- 🎯 **Village Mode** (simplified UI for low-literacy users)
-
-## 🛡️ Security Architecture
+## Repository Structure
 
 ```
-User Aadhaar Input (12 digits)
-         ↓
-   [SHA-256 Hash]
-         ↓
-    Store Only:
-    - Last 4 digits (display)
-    - Hashed token (verification)
-    - Audit log entry
-         ↓
-   Original Aadhaar DELETED
-   (Never touches database)
+medaiii/
+├── src/                    # React application source code
+│   ├── components/         # Reusable UI components
+│   ├── pages/             # Page components and routes
+│   ├── contexts/          # React contexts (auth, language, etc.)
+│   ├── hooks/             # Custom React hooks
+│   ├── lib/               # Utility functions and helpers
+│   └── integrations/      # Third-party integrations (Maps, etc.)
+├── public/                # Static assets and PWA icons
+├── backend-modules/       # Optional backend services (search API, etc.)
+├── supabase/             # Database migrations and seed data
+├── scripts/              # Utility scripts (migrations, setup, etc.)
+├── tests/                # Test files and utilities
+├── docs/                 # 📚 All documentation (see below)
+├── docker/               # Docker and nginx configuration
+└── mobile/               # React Native mobile app
 ```
 
-### Security Features:
-- ✅ One-way encryption (SHA-256)
-- ✅ Tamper-proof audit logs
-- ✅ Row-level security (RLS) in database
-- ✅ Anonymous consultation option
-- ✅ Encrypted data transmission
-- ✅ No third-party tracking
+### 📚 Documentation
 
-## 🏗️ Tech Stack
+All project documentation is organized in the [docs/](docs) directory:
 
-- **Frontend:** React 18.3, TypeScript, Vite 5.4
-- **UI:** shadcn-ui, Tailwind CSS
-- **Database:** Supabase (PostgreSQL)
-- **Real-time:** Supabase Realtime subscriptions
-- **Maps:** Google Maps API / OpenStreetMap
-- **AI:** Lovable AI + local fallback
-- **Security:** SHA-256 hashing, RLS policies
-- **Languages:** i18n with 8 Indian languages
+- **[docs/guides/](docs/guides)** - Setup guides, quick starts, and how-tos
+- **[docs/features/](docs/features)** - Feature-specific documentation (Health ID, Vaccination, etc.)
+- **[docs/deployment/](docs/deployment)** - Deployment guides and checklists
+- **[docs/security/](docs/security)** - Security policies and compliance guides
+- **[docs/implementation/](docs/implementation)** - Implementation summaries and technical details
 
-## 📊 Impact Metrics
+**📖 Full documentation index**: [docs/README.md](docs/README.md)
 
-- 🎯 **Zero raw Aadhaar storage** = 100% privacy protection
-- 🏥 **NDHM integration** = Access to pan-India health records
-- 🚑 **Emergency routing** = Faster response times
-- 📈 **AI insights** = Proactive disease prevention
-- 🌍 **8 languages** = Inclusive for all Indians
+Key documents:
+- [CONTRIBUTING_SIMPLE.md](CONTRIBUTING_SIMPLE.md) - Quick start for contributors
+- [PROJECT_ORGANIZATION.md](PROJECT_ORGANIZATION.md) - Understanding the project structure
+- [CHANGELOG.md](CHANGELOG.md) - Version history and changes
+- [ROADMAP.md](ROADMAP.md) - Future plans and features
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
-- Node.js & npm ([install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating))
-- Supabase account
 
-### Installation
+- Node.js 20+ and npm 10+
+- Supabase project (for database and RLS-enabled auth)
+- Optional: Docker for local containerized runs
 
-```sh
+### Quick Setup
+
+```bash
 # Clone the repository
-git clone https://github.com/AnshXGrind/MED-AID-SAARTHI.git
-
-# Navigate to project
-cd MED-AID-SAARTHI
+git clone https://github.com/AnshXGrind/medaiii.git
+cd medaiii
 
 # Install dependencies
 npm install
 
-# Start development server
+# Set up environment (copy and edit with your Supabase credentials)
+cp .env.example .env.local
+```
+
+**📖 Detailed setup guide**: [docs/guides/QUICK_START.md](docs/guides/QUICK_START.md)  
+**👥 Contributing**: [CONTRIBUTING_SIMPLE.md](CONTRIBUTING_SIMPLE.md)
+
+### Environment configuration
+
+1. Create an `.env.local` file for the frontend and add Supabase keys and URLs. See [docs/deployment/DEPLOYMENT.md](docs/deployment/DEPLOYMENT.md) for required variables.
+2. Apply Supabase migrations from [supabase/](supabase) to set up tables and RLS policies. Run `npm run migrate` or use scripts in [scripts/](scripts).
+3. (Optional) Configure `backend-modules/.env` if running search or auxiliary services locally.
+
+### Run locally
+
+```bash
 npm run dev
 ```
 
-### Quick Local Deployment with Docker Compose
+The app will start at `http://localhost:5173`. The dev server uses Vite and supports hot module replacement.
 
-1. Copy and fill in `backend-modules/.env` using `.env.example` (set MongoDB URI, JWT_SECRET, etc.)
-2. Run:
+### Quality checks
 
-```powershell
-docker compose up --build
-```
+- Lint: `npm run lint`
+- Build verification: `npm run build`
+- Preview production build: `npm run preview`
 
-This will start:
-- Backend API at http://localhost:5000
-- Frontend at http://localhost:8080
-- MongoDB at localhost:27017 (data persisted in `mongo-data` volume)
+Automated tests are not yet wired; add targeted tests under `src/__tests__/` when contributing.
 
-To stop and remove containers:
-```powershell
-docker compose down
-```
+## Security and Privacy Practices
 
-For production, see `DEPLOY_CHECKLIST.md` for environment variables and cloud deployment steps.
+- Aadhaar numbers are never stored in full; only hashed tokens with last-4 display
+- Review [docs/security/SECURITY.md](docs/security/SECURITY.md) before making changes to auth or data access
+- Follow Supabase RLS guidance when modifying schemas (see [docs/guides/MIGRATION_GUIDE.md](docs/guides/MIGRATION_GUIDE.md))
 
-### Database Setup
+## Future Improvements
 
-Run the migrations in your Supabase SQL Editor:
+- Add automated test coverage (unit and integration) for core flows
+- Provide example `.env` templates scoped for local and staging use
+- Harden CI with lint/build/test/security scanners
+- Expand accessibility audits and multi-language content coverage
 
-1. `20251029063522_*.sql` - Initial schema
-2. `20251102_zero_aadhaar_storage.sql` - **Security migration**
-3. `20251102_abha_integration.sql` - NDHM integration
-4. `20251102_sample_doctors.sql` - Sample data
+## License
 
-## 📖 Key Documentation
-
-- **Zero Aadhaar Storage:** See `src/lib/secureAadhaar.ts`
-- **Anonymous Mode:** See `src/components/SecureAadhaarVerification.tsx`
-- **ABHA Integration:** See `src/components/ABHAIntegration.tsx`
-- **Emergency Routing:** See `src/components/EmergencyRouting.tsx`
-- **AI Insights:** See `src/components/HealthInsightsDashboard.tsx`
-
-## 🎯 Pitch Highlights
-
-### For Judges/Investors:
-
-1. **Privacy-First Architecture** 
-   - Zero raw Aadhaar storage differentiates us from ALL competitors
-   - Blockchain-lite audit trail shows accountability
-   
-2. **Government Integration**
-   - ABHA/NDHM ready = seamless national health ecosystem fit
-   - Shows understanding of India's digital health vision
-   
-3. **AI + Ethics**
-   - ML-powered insights WITHOUT compromising individual privacy
-   - Anonymous mode shows empathy for sensitive health issues
-   
-4. **Real-World Impact**
-   - Emergency routing can save lives (measurable impact)
-   - Multi-language = truly inclusive
-   - Rural-focused (Village Mode) addresses real gaps
-
-5. **Scalable & Secure**
-   - Built on enterprise-grade Supabase
-   - Real-time capabilities
-   - Production-ready security
-
-## 🤝 Contributing
-
-We welcome contributions! Please see our contributing guidelines.
-
-## 📄 License
-
-MIT License - see LICENSE file for details
-
-## 🙏 Acknowledgments
-
-- Built with [Lovable](https://lovable.dev)
-- Inspired by India's digital health mission
-- For the people of India 🇮🇳
-
----
-
-**Made with ❤️ for bridging healthcare gaps in India**
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
