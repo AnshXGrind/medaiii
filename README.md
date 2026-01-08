@@ -1,8 +1,7 @@
-# MED-AID SAARTHI
+# MED-Aid
 
-**A consent-first digital health records platform designed to bridge healthcare access gaps in India.**
-
-This is a **flagship portfolio project** built by a BTech student focusing on product design, system architecture, and user-centered healthcare UX. It demonstrates full-stack capabilities, ethical design decisions, and understanding of complex domain constraints — not a production medical system.
+A privacy-first digital health platform focused on bridging healthcare access gaps across India.  
+MED-Aid delivers secure digital health IDs, appointment workflows, emergency routing, and consent-driven data handling using a modern frontend-first architecture.
 
 ---
 
