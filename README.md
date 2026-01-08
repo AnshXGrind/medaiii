@@ -14,58 +14,49 @@ This is a **flagship portfolio project** built by a BTech student focusing on pr
 
 ---
 
-## 📊 Project Status & Scope Clarity
+## 📊 Project Status & Scope
 
-### ✅ Phase 1: Currently Implemented (MVP)
-**What actually works in the deployed application:**
-- Digital Health ID creation with privacy-aware Aadhaar handling (hashed tokens, last-4 display only)
-- Patient and doctor authentication flows with role-based routing
-- Medical record upload and secure storage (images, PDFs)
-- Emergency assistance page with location-based hospital discovery
-- Appointment booking workflows (UI complete, booking persistence functional)
-- Vaccination reminder interface with multi-dose tracking
-- PWA install prompts for offline-capable access
-- Multi-language context architecture (English + Hindi infrastructure)
+This is a phased flagship project.
 
-**Tech Stack (Production):**  
-React 18, TypeScript, Vite, TanStack Query, Supabase (PostgreSQL + RLS), shadcn/ui, Tailwind CSS
+**Phase 1 (Implemented MVP)**
+- Health ID creation with privacy-safe identifiers
+- Patient and doctor dashboards
+- Appointment workflows
+- Emergency routing with location-based discovery
+- Multi-language UI foundation
+- PWA setup for mobile-first access
 
-### 🎨 Phase 2: Designed & Documented (Not Fully Built)
-**Features with complete UX flows, database schemas, and technical specs — but not production-implemented:**
-- AI medical report summarization (designed OCR + NLP pipeline, not connected to live AI APIs)
-- Real ABDM/ABHA integration (mock UI exists; real government API integration not connected)
-- Secure record sharing with time-limited tokens (consent logic designed, partial implementation)
-- Telemedicine video consultation (placeholder UI, WebRTC not wired)
-- Government scheme eligibility checker (rules engine documented, API not built)
+**Phase 2 (Designed & Partially Implemented)**
+- Vaccination reminders and offers modules
+- Extended admin workflows
+- Optional backend services for search and routing
+- Documentation for ABHA/NDHM-aligned flows (non-production)
 
-### 🔮 Phase 3: Vision / Research (Conceptual Only)
-**Ideas documented in roadmaps and strategy docs — not designed or built:**
-- Blockchain-based health records (mentioned in early pitches, not pursued)
-- Real-time disease prediction models (research concept, no training data or models exist)
-- Pharmacy integration and medicine ordering
-- Wearable device data ingestion
-- Advanced analytics dashboards for public health insights
+**Phase 3 (Planned / Vision)**
+- Deeper interoperability with national health systems
+- Advanced analytics on anonymized data
+- Expanded accessibility and offline-first support
 
 ---
 
 ## 🧠 Design Decisions & Tradeoffs
 
-### What Was Intentionally NOT Built (And Why)
+- Avoided live medical diagnosis or clinical decision-making to reduce ethical and regulatory risk.
+- Prioritized consent-driven access and privacy boundaries before AI features.
+- Chose Supabase with RLS to enforce data isolation at the database level.
+- Focused on frontend and UX clarity over backend complexity in early phases.
 
-**1. No Real AI Diagnosis**  
-Medical diagnosis requires regulatory approval, liability insurance, and clinical validation. This project focuses on **record management and access**, not diagnosis. The "AI Coach" is a conversational UI layer for health literacy, not a diagnostic tool.
+---
 
-**2. No Production Government Integration**  
-ABDM/ABHA APIs require institutional partnerships and compliance certification. The project demonstrates **understanding of the integration requirements** through mock flows and documentation, not live connections.
+## 🚀 Project Demo
 
-**3. Limited Offline Functionality**  
-True offline-first healthcare requires complex sync logic, conflict resolution, and edge case handling. The PWA provides **install capability and basic caching**, not full offline-first architecture.
+**Live preview:** https://medaiii.vercel.app
 
-**4. Privacy-First Over Feature Velocity**  
-Aadhaar is never stored in full. Record sharing requires explicit consent. Emergency access is designed with audit trails. These constraints slow feature development but demonstrate **ethical system design**.
-
-**5. No SMS/WhatsApp Notifications**  
-Sending medical data via SMS/WhatsApp requires encryption, consent management, and telco integrations. The project focuses on **web-based access patterns** to avoid over-claiming communication capabilities.
+**Suggested walkthrough:**
+1. Create a health ID
+2. Explore the patient dashboard
+3. View emergency routing flow
+4. Switch language context
 
 ---
 
