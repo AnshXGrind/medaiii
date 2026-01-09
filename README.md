@@ -13,37 +13,37 @@ MED-Aid delivers secure digital health IDs, appointment workflows, emergency rou
 
 ---
 
-## 📊 Project Status & Scope
+## Project Status & Scope
 
-This is a phased flagship project.
+MED-Aid is a long-term flagship project developed in clearly defined phases.
 
-**Phase 1 (Implemented MVP)**
-- Health ID creation with privacy-safe identifiers
+### Phase 1 — Implemented MVP
+- Secure health ID creation with hashed Aadhaar tokens (last-4 display only)
 - Patient and doctor dashboards
 - Appointment workflows
-- Emergency routing with location-based discovery
+- Emergency routing with location-based hospital discovery
 - Multi-language UI foundation
-- PWA setup for mobile-first access
+- Progressive Web App (PWA) support for mobile-first access
 
-**Phase 2 (Designed & Partially Implemented)**
+### Phase 2 — Designed & Partially Implemented
 - Vaccination reminders and offers modules
-- Extended admin workflows
+- Admin and coordination workflows
 - Optional backend services for search and routing
 - Documentation for ABHA/NDHM-aligned flows (non-production)
 
-**Phase 3 (Planned / Vision)**
-- Deeper interoperability with national health systems
+### Phase 3 — Planned / Vision
+- Deeper interoperability with national digital health systems
 - Advanced analytics on anonymized data
 - Expanded accessibility and offline-first support
 
 ---
 
-## 🧠 Design Decisions & Tradeoffs
+## Design Decisions & Tradeoffs
 
 - Avoided live medical diagnosis or clinical decision-making to reduce ethical and regulatory risk.
-- Prioritized consent-driven access and privacy boundaries before AI features.
-- Chose Supabase with RLS to enforce data isolation at the database level.
-- Focused on frontend and UX clarity over backend complexity in early phases.
+- Prioritized consent-driven access and privacy boundaries before intelligence features.
+- Chose Supabase with Row Level Security (RLS) to enforce data isolation at the database layer.
+- Focused on frontend architecture and UX clarity over backend complexity in early phases.
 
 ---
 
