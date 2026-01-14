@@ -51,7 +51,7 @@ const Index = () => {
               <span className="text-sm font-medium text-secondary">AI-Powered Healthcare Platform</span>
             </div>
             
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
               <span className="bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent">
                 MedAid
               </span>
@@ -61,7 +61,7 @@ const Index = () => {
               <span className="text-foreground">with AI Healthcare</span>
             </h1>
             
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg lg:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
               Bridge India's healthcare gap with AI-driven symptom analysis, multilingual support, 
               and instant doctor consultations. Healthcare for all, in your language.
             </p>

@@ -73,10 +73,10 @@ export default function HealthIDLogin() {
     // Simulate validation delay
     await new Promise(resolve => setTimeout(resolve, 1000));
 
-    // Since we don't have database, redirect to demo profile
-    toast.success('Health ID verified! Redirecting...');
+    // Redirect to proper patient portal
+    toast.success('Health ID verified! Redirecting to your portal...');
     setTimeout(() => {
-      navigate('/health-id-demo-profile');
+      navigate('/patient-dashboard');
     }, 500);
 
     setIsValidating(false);
@@ -84,9 +84,9 @@ export default function HealthIDLogin() {
 
   const handleDemoAccess = () => {
     setHealthId('27-1234-5678-9012');
-    toast.success('Demo Health ID entered!');
+    toast.success('Demo access granted! Redirecting to portal...');
     setTimeout(() => {
-      navigate('/health-id-demo-profile');
+      navigate('/patient-dashboard');
     }, 800);
   };
 
@@ -98,7 +98,7 @@ export default function HealthIDLogin() {
     <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-secondary/5">
       <Navbar />
       
-      <div className="container mx-auto px-4 pt-32 pb-20">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 lg:pt-32 pb-12 sm:pb-16 lg:pb-20">
         {/* Header */}
         <div className="text-center mb-12 animate-fade-in">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-6">
@@ -106,10 +106,10 @@ export default function HealthIDLogin() {
             <span className="text-sm font-medium text-primary">Universal Health ID System</span>
           </div>
           
-          <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
             Access Your Health Profile
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
             Enter your 14-digit Universal Health ID to view your complete medical records, 
             vaccination history, and family health information
           </p>
@@ -119,7 +119,7 @@ export default function HealthIDLogin() {
           {/* Login Form */}
           <Card className="border-2 shadow-xl">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-2xl">
+              <CardTitle className="flex items-center gap-2 text-xl sm:text-2xl">
                 <Shield className="h-6 w-6 text-primary" />
                 Login with Health ID
               </CardTitle>
@@ -142,7 +142,7 @@ export default function HealthIDLogin() {
                       value={healthId}
                       onChange={handleHealthIdChange}
                       maxLength={17}
-                      className="pl-12 text-lg font-mono h-12"
+                      className="pl-12 text-base sm:text-lg font-mono h-11 sm:h-12"
                     />
                   </div>
                   <p className="text-xs text-muted-foreground flex items-center gap-1">
