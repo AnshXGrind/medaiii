@@ -1,102 +1,232 @@
-# MED-Aid
+# MED-Aid 🏥
 
-A privacy-first digital health platform focused on bridging healthcare access gaps across India.  
-MED-Aid delivers secure digital health IDs, appointment workflows, emergency routing, and consent-driven data handling using a modern frontend-first architecture.
+> **Privacy-first digital health platform bridging healthcare access gaps across India**
 
----
-
-## 🎯 Who This Project Is For
-
-- **Recruiters & Hiring Managers**: Evaluating full-stack product + design capabilities in a complex domain
-- **Open Source Contributors**: Learning healthcare system design patterns and React/Supabase architecture  
-- **Design Reviewers**: Assessing consent flows, emergency access logic, and low-literacy UX considerations
+[![Live Demo](https://img.shields.io/badge/demo-live-success)](https://medaiii.vercel.app)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](./CONTRIBUTING.md)
 
 ---
 
-## Project Status & Scope
+## 🌟 Overview
 
-MED-Aid is a long-term flagship project developed in clearly defined phases.
+MED-Aid is a comprehensive digital health platform that enables secure health ID creation, appointment management, emergency routing, and consent-driven health record management. Built with privacy and accessibility at its core, it addresses healthcare fragmentation challenges faced by underserved populations in India.
 
-### Phase 1 — Implemented MVP
-- Secure health ID creation with hashed Aadhaar tokens (last-4 display only)
-- Patient and doctor dashboards
-- Appointment workflows
-- Emergency routing with location-based hospital discovery
-- Multi-language UI foundation
-- Progressive Web App (PWA) support for mobile-first access
-
-### Phase 2 — Designed & Partially Implemented
-- Vaccination reminders and offers modules
-- Admin and coordination workflows
-- Optional backend services for search and routing
-- Documentation for ABHA/NDHM-aligned flows (non-production)
-
-### Phase 3 — Planned / Vision
-- Deeper interoperability with national digital health systems
-- Advanced analytics on anonymized data
-- Expanded accessibility and offline-first support
+**🔗 Live Demo:** [https://medaiii.vercel.app](https://medaiii.vercel.app)
 
 ---
 
-## Design Decisions & Tradeoffs
+## ✨ Key Features
 
-- Avoided live medical diagnosis or clinical decision-making to reduce ethical and regulatory risk.
-- Prioritized consent-driven access and privacy boundaries before intelligence features.
-- Chose Supabase with Row Level Security (RLS) to enforce data isolation at the database layer.
-- Focused on frontend architecture and UX clarity over backend complexity in early phases.
+### 🆔 Digital Health IDs
+- Secure health ID creation with hashed Aadhaar integration
+- Privacy-first approach (only last-4 digits displayed)
+- Universal health identifier for seamless care
+
+### 📅 Appointment Management
+- Book appointments with healthcare providers
+- View and manage appointment history
+- Doctor and patient dashboards
+
+### 🚨 Emergency Routing
+- Location-based hospital discovery
+- Quick access to emergency services
+- Consent-override mechanisms for critical situations
+
+### 📱 Progressive Web App (PWA)
+- Mobile-first responsive design
+- Offline capabilities
+- Install as native app on any device
+
+### 🌐 Multi-language Support
+- Accessibility for diverse populations
+- Multiple Indian language options
+- Low-literacy friendly UX
+
+### 🔒 Privacy & Security
+- Row Level Security (RLS) with Supabase
+- Consent-driven data access
+- HIPAA-aligned security practices
 
 ---
 
-## 🚀 Project Demo
+## 🛠️ Tech Stack
 
-**Live preview:** https://medaiii.vercel.app
+### Frontend
+- **React 18** with TypeScript
+- **Vite** - Fast build tooling
+- **TailwindCSS** - Utility-first styling
+- **Shadcn/ui** - Component library
+- **React Router** - Navigation
+- **React Query** - State management
 
-**Suggested walkthrough:**
-1. Create a health ID
-2. Explore the patient dashboard
-3. View emergency routing flow
-4. Switch language context
+### Backend
+- **Supabase** - PostgreSQL database with RLS
+- **Node.js/Express** - API services
+- **MongoDB** - Additional data storage
 
----
-
-## 💡 Problem Statement
-
-Healthcare record fragmentation disproportionately affects underserved populations. Patients lose paper records, switch providers without continuity, and face language barriers in understanding medical information. 
-
-MED-AID SAARTHI explores how **consent-first digital infrastructure** could enable:
-- Patient-owned record portability
-- Emergency access without compromising daily privacy
-- Low-literacy UX for health information comprehension
-- Interoperability aligned with India's ABDM standards
-
-This is a **design exploration and technical prototype**, not a licensed medical platform.
+### Infrastructure
+- **Vercel** - Frontend hosting
+- **Docker** - Containerization
+- **GitHub Actions** - CI/CD
 
 ---
 
-## 📢 Recommended Hero Copy (Landing Page)
+## 🚀 Quick Start
 
-**For product messaging that prioritizes trust and clarity over hype:**
+### Prerequisites
+- Node.js 18+ 
+- npm or yarn
+- Supabase account
 
-### Option A: Records-First Positioning
-**Headline:**  
-"Your Health Records. Your Control. Anywhere You Need Them."
+### Installation
 
-**Subheadline:**  
-"A consent-first digital vault for medical documents with emergency access design and privacy-aware sharing."
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/AnshXGrind/medaiii.git
+   cd medaiii
+   ```
 
-### Option B: Access-Focused Positioning
-**Headline:**  
-"Healthcare Access Without the Paperwork Chaos"
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-**Subheadline:**  
-"Store prescriptions, share with doctors securely, and access your health history from any device — designed for India's diverse healthcare landscape."
+3. **Set up environment variables**
+   ```bash
+   cp .env.example .env
+   # Edit .env with your Supabase credentials
+   ```
 
-### Option C: Trust-Centered Positioning (Recommended)
-**Headline:**  
-"Healthcare Records That Put You in Charge"
+4. **Run development server**
+   ```bash
+   npm run dev
+   ```
 
-**Subheadline:**  
-"A student-built prototype exploring consent-first record management, emergency access patterns, and interoperability for India's digital health infrastructure."
+5. **Open in browser**
+   ```
+   http://localhost:5173
+   ```
+
+### Backend Setup (Optional)
+
+```bash
+cd backend-modules
+npm install
+cp .env.example .env
+# Configure MongoDB and other services
+npm start
+```
+
+---
+
+## 📁 Project Structure
+
+```
+medaiii/
+├── src/                  # Frontend source code
+│   ├── components/       # React components
+│   ├── pages/           # Route pages
+│   ├── lib/             # Utilities
+│   ├── hooks/           # Custom hooks
+│   └── integrations/    # External integrations
+├── backend-modules/     # Backend API services
+│   ├── models/          # Database models
+│   ├── routes/          # API routes
+│   └── server.js        # Express server
+├── docs/                # Documentation
+├── public/              # Static assets
+├── supabase/            # Database migrations
+└── scripts/             # Utility scripts
+```
+
+---
+
+## 🔐 Environment Variables
+
+Key environment variables (see `.env.example` for full list):
+
+```env
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+**⚠️ Never commit `.env` files with actual credentials**
+
+---
+
+## 🏗️ Architecture
+
+### High-Level Overview
+
+```
+┌─────────────┐      ┌──────────────┐      ┌─────────────┐
+│   React     │────▶ │   Supabase   │────▶ │  PostgreSQL │
+│  Frontend   │      │   (API+Auth) │      │  Database   │
+└─────────────┘      └──────────────┘      └─────────────┘
+       │                                             │
+       │                                             │
+       ▼                                             ▼
+┌─────────────┐                             ┌─────────────┐
+│  Express    │                             │  Row Level  │
+│   Backend   │                             │  Security   │
+└─────────────┘                             └─────────────┘
+```
+
+### Key Design Decisions
+
+- **Frontend-first architecture** - Reduced backend complexity in early phases
+- **Supabase RLS** - Database-level security and data isolation
+- **Consent-driven access** - Privacy boundaries enforced before feature expansion
+- **No clinical diagnosis** - Avoiding ethical/regulatory risks
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions! Please read our [CONTRIBUTING.md](./CONTRIBUTING.md) for:
+- Code of conduct
+- Development workflow
+- Pull request process
+- Coding standards
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+
+---
+
+## 🎯 Roadmap
+
+- [x] MVP with Health IDs and appointments
+- [x] Emergency routing
+- [x] PWA support
+- [ ] ABHA/NDHM integration
+- [ ] Advanced analytics
+- [ ] Offline-first capabilities
+- [ ] Telemedicine features
+
+---
+
+## 🙏 Acknowledgments
+
+- Built with modern React ecosystem
+- Powered by Supabase
+- UI components from Shadcn
+- Icons from Lucide
+
+---
+
+## 📧 Contact
+
+- **Project Link:** [https://github.com/AnshXGrind/medaiii](https://github.com/AnshXGrind/medaiii)
+- **Live Demo:** [https://medaiii.vercel.app](https://medaiii.vercel.app)
+
+---
+
+**⚕️ Disclaimer:** This is a prototype for educational and demonstration purposes. Not intended for production medical use without proper licensing and compliance.
 
 **Why this works:**  
 - Emphasizes user agency over AI magic

@@ -1,40 +1,27 @@
-# Contributing to MED-AID SAARTHI v2.0
+# Contributing to MED-Aid
 
-🎉 Thank you for considering contributing to MED-AID SAARTHI! This healthcare platform aims to bridge healthcare gaps in India with AI, privacy-first architecture, and government integration.
+Thank you for considering contributing to MED-Aid! This guide will help you get started.
 
 ## 📋 Table of Contents
 
 - [Code of Conduct](#code-of-conduct)
 - [Getting Started](#getting-started)
 - [Development Workflow](#development-workflow)
-- [Pre-Commit Hooks](#pre-commit-hooks)
-- [Security Requirements](#security-requirements)
 - [Pull Request Process](#pull-request-process)
 - [Coding Standards](#coding-standards)
-- [Testing Guidelines](#testing-guidelines)
 
 ---
 
 ## 📜 Code of Conduct
 
-### Our Pledge
-
-We are committed to providing a welcoming and inclusive environment for all contributors, regardless of experience level, background, or identity.
-
-### Expected Behavior
+### Our Standards
 
 - ✅ Be respectful and considerate
 - ✅ Collaborate openly and constructively
-- ✅ Focus on what is best for the community
+- ✅ Focus on what's best for the community
 - ✅ Show empathy towards others
-
-### Unacceptable Behavior
-
-- ❌ Harassment, discrimination, or inappropriate conduct
-- ❌ Publishing others' private information
-- ❌ Trolling, insulting, or derogatory comments
-
-**Report issues**: Contact maintainers at [security@medaidsathi.com](mailto:security@medaidsathi.com)
+- ❌ No harassment, discrimination, or inappropriate conduct
+- ❌ No trolling or derogatory comments
 
 ---
 
@@ -42,11 +29,162 @@ We are committed to providing a welcoming and inclusive environment for all cont
 
 ### Prerequisites
 
-- **Node.js**: v20 or higher ([nvm recommended](https://github.com/nvm-sh/nvm))
-- **npm**: v10 or higher
-- **Git**: Latest version
-- **Supabase account**: For database access
-- **Python 3.11+**: For backend modules (optional)
+- Node.js 18+ ([download](https://nodejs.org/))
+- npm or yarn
+- Git
+- Supabase account (for database features)
+
+### Setup
+
+1. **Fork the repository**
+
+2. **Clone your fork**
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/medaiii.git
+   cd medaiii
+   ```
+
+3. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+4. **Set up environment**
+   ```bash
+   cp .env.example .env
+   # Add your Supabase credentials
+   ```
+
+5. **Run development server**
+   ```bash
+   npm run dev
+   ```
+
+---
+
+## 🔧 Development Workflow
+
+### Creating a Branch
+
+```bash
+git checkout -b feature/your-feature-name
+# or
+git checkout -b fix/your-bug-fix
+```
+
+### Making Changes
+
+1. Write clean, readable code
+2. Follow existing code style
+3. Add comments for complex logic
+4. Test your changes locally
+
+### Committing
+
+```bash
+git add .
+git commit -m "feat: add new feature"
+# or
+git commit -m "fix: resolve bug in component"
+```
+
+**Commit message format:**
+- `feat:` new feature
+- `fix:` bug fix
+- `docs:` documentation changes
+- `style:` formatting changes
+- `refactor:` code refactoring
+- `test:` adding tests
+- `chore:` maintenance tasks
+
+---
+
+## 🔀 Pull Request Process
+
+1. **Update your fork**
+   ```bash
+   git fetch upstream
+   git merge upstream/main
+   ```
+
+2. **Push to your fork**
+   ```bash
+   git push origin feature/your-feature-name
+   ```
+
+3. **Create Pull Request**
+   - Go to GitHub and create a PR from your fork
+   - Provide a clear title and description
+   - Reference any related issues
+
+4. **PR Requirements**
+   - ✅ Code builds successfully
+   - ✅ No linting errors
+   - ✅ Follows project conventions
+   - ✅ Clear description of changes
+
+---
+
+## 📝 Coding Standards
+
+### TypeScript/React
+
+- Use functional components with hooks
+- Use TypeScript types (avoid `any`)
+- Follow React best practices
+- Keep components small and focused
+
+### File Structure
+
+```
+src/
+├── components/     # Reusable UI components
+├── pages/         # Page components
+├── hooks/         # Custom hooks
+├── lib/           # Utilities
+└── integrations/  # External services
+```
+
+### Naming Conventions
+
+- Components: `PascalCase` (e.g., `HealthIdCard.tsx`)
+- Files: `PascalCase` for components, `camelCase` for utilities
+- Variables: `camelCase`
+- Constants: `UPPER_SNAKE_CASE`
+
+### Style Guide
+
+- Use TailwindCSS for styling
+- Follow Shadcn/ui patterns
+- Keep accessibility in mind (ARIA labels, semantic HTML)
+
+---
+
+## 🧪 Testing
+
+Before submitting:
+
+```bash
+npm run lint       # Check for linting errors
+npm run build      # Ensure build succeeds
+```
+
+---
+
+## 🤔 Questions?
+
+- Check existing issues and discussions
+- Create a new issue for bugs or feature requests
+- Be clear and provide examples
+
+---
+
+## 🙏 Recognition
+
+Contributors will be recognized in our README and release notes.
+
+Thank you for making MED-Aid better! 🎉
+
 
 ### Initial Setup
 
