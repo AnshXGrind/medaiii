@@ -21,15 +21,15 @@ const DoctorDashboard = () => {
     pending: 0,
     completed: 0
   });
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
 
   useEffect(() => {
-    if (user) {
+    if (!loading) {
       loadConsultations();
       loadAppointments();
-      setupRealtimeSubscription();
+      if (user) setupRealtimeSubscription();
     }
-  }, [user]);
+  }, [user, loading]);
 
   const setupRealtimeSubscription = () => {
     // Subscribe to consultations
@@ -79,6 +79,24 @@ const DoctorDashboard = () => {
   };
 
   const loadAppointments = async () => {
+    if (!user) {
+      const mockAppointments = [
+        { id: "apt-1", doctor_id: "demo-doc", appointment_type: "Virtual", appointment_date: new Date(Date.now() + 86400000).toISOString(), status: "confirmed", notes: "First visit", created_at: new Date().toISOString(), profiles: { full_name: "Demo Patient 1", health_id: "9999-8888-7777-66" } },
+        { id: "apt-2", doctor_id: "demo-doc", appointment_type: "In-Person", appointment_date: new Date(Date.now() + 172800000).toISOString(), status: "pending", notes: "Routine checkup", created_at: new Date().toISOString(), profiles: { full_name: "Demo Patient 2", health_id: "1111-2222-3333-44" } },
+      ];
+      setAppointments(mockAppointments);
+      const today = new Date().toDateString();
+      const todayAppointments = mockAppointments.filter(a => 
+        new Date(a.appointment_date).toDateString() === today
+      ).length;
+      
+      setStats(prev => ({
+        ...prev,
+        todayAppointments,
+        pending: prev.pending + mockAppointments.filter(a => a.status === 'pending').length
+      }));
+      return;
+    }
     const { data, error } = await supabase
       .from("appointments")
       .select("*, profiles!appointments_patient_id_fkey(full_name, health_id)")
@@ -103,6 +121,24 @@ const DoctorDashboard = () => {
   };
 
   const loadConsultations = async () => {
+    if (!user) {
+      const mockConsultations = [
+        { id: "demo-1", patient_id: "pat-1", symptoms: "Fever, Cough", diagnosis: "Viral Infection", status: "completed", created_at: new Date().toISOString(), profiles: { full_name: "Demo Patient 1", health_id: "9999-8888-7777-66" } },
+        { id: "demo-2", patient_id: "pat-2", symptoms: "Headache", diagnosis: null, status: "pending", created_at: new Date(Date.now() - 86400000).toISOString(), profiles: { full_name: "Demo Patient 2", health_id: "1111-2222-3333-44" } },
+      ];
+      setConsultations(mockConsultations);
+      const today = new Date().toDateString();
+      setStats(prev => ({
+        ...prev,
+        totalPatients: new Set(mockConsultations.map(c => c.patient_id)).size,
+        todayConsultations: mockConsultations.filter(c => 
+          new Date(c.created_at).toDateString() === today
+        ).length,
+        pending: mockConsultations.filter(c => c.status === 'pending').length,
+        completed: mockConsultations.filter(c => c.status === 'completed').length
+      }));
+      return;
+    }
     const { data, error } = await supabase
       .from("consultations")
       .select("*, profiles!consultations_patient_id_fkey(full_name, health_id)")

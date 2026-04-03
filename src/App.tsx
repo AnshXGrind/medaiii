@@ -53,8 +53,8 @@ const App = () => (
         <PWAInstallPrompt />
         <BrowserRouter basename={import.meta.env.BASE_URL}>
           <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/auth" element={<Auth />} />
+            <Route path="/" element={<Auth />} />
+            <Route path="/home" element={<Index />} />
             <Route path="/patient-dashboard" element={<PatientDashboard />} />
             <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
             <Route path="/doctor-profile" element={<DoctorProfile />} />

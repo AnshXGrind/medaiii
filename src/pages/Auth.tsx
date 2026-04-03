@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Link, useNavigate } from "react-router-dom";
-import { Activity, User, Stethoscope, Loader2, CreditCard, Mail, Shield, FileText } from "lucide-react";
+import { Activity, User, Stethoscope, Loader2, CreditCard, Mail, Shield, FileText, Play } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
@@ -41,6 +41,9 @@ const Auth = () => {
   // Health ID Creation Mode
   const [showHealthIdCreation, setShowHealthIdCreation] = useState(false);
   const [createHealthIdMode, setCreateHealthIdMode] = useState(false);
+
+  // Demo Mode
+  const [showDemoDialog, setShowDemoDialog] = useState(false);
 
   // Redirect authenticated users
   useEffect(() => {
@@ -396,6 +399,22 @@ const Auth = () => {
                 </TabsContent>
               </Tabs>
 
+              <div className="my-6 flex items-center">
+                <div className="flex-1 border-t border-border"></div>
+                <span className="mx-4 text-xs text-muted-foreground uppercase">Or</span>
+                <div className="flex-1 border-t border-border"></div>
+              </div>
+              
+              <Button 
+                type="button" 
+                variant="outline" 
+                className="w-full transition-smooth border-primary/20 hover:bg-primary/5"
+                onClick={() => setShowDemoDialog(true)}
+              >
+                <Play className="h-4 w-4 mr-2 text-primary" />
+                Try Interactive Demo
+              </Button>
+
               <p className="text-center text-sm text-muted-foreground mt-6">
                 By continuing, you agree to our Terms of Service and Privacy Policy
               </p>
@@ -478,6 +497,40 @@ const Auth = () => {
           setShowHealthIdCreation(false);
         }}
       />
+
+      {/* Demo Mode Dialog */}
+      <Dialog open={showDemoDialog} onOpenChange={setShowDemoDialog}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Select Interactive Demo Mode</DialogTitle>
+            <DialogDescription>
+              Choose a role below to explore the dedicated interface and features.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid grid-cols-2 gap-4 py-4">
+            <Button
+              variant="outline"
+              className="h-32 flex flex-col gap-3 group hover:border-primary hover:bg-primary/5 transition-all"
+              onClick={() => navigate("/patient-dashboard")}
+            >
+              <div className="p-3 bg-primary/10 rounded-full group-hover:scale-110 transition-transform">
+                <User className="h-8 w-8 text-primary" />
+              </div>
+              <span className="font-semibold text-base">Patient Demo</span>
+            </Button>
+            <Button
+              variant="outline"
+              className="h-32 flex flex-col gap-3 group hover:border-primary hover:bg-primary/5 transition-all"
+              onClick={() => navigate("/doctor-dashboard")}
+            >
+              <div className="p-3 bg-primary/10 rounded-full group-hover:scale-110 transition-transform">
+                <Stethoscope className="h-8 w-8 text-primary" />
+              </div>
+              <span className="font-semibold text-base">Doctor Demo</span>
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

@@ -65,7 +65,11 @@ const PatientDashboard = () => {
   const { t } = useLanguage();
 
   const loadUserData = async () => {
-    if (!user) return;
+    if (!user) {
+      setHealthIdNumber("9999-8888-7777-66");
+      setPatientName("Demo Patient (John Doe)");
+      return;
+    }
     
     // Get Health ID from user metadata (fallback to Aadhaar if no Health ID)
     const healthId = user.user_metadata?.health_id || user.user_metadata?.aadhaar_number || "";
@@ -76,6 +80,13 @@ const PatientDashboard = () => {
   };
 
   const loadConsultations = async () => {
+    if (!user) {
+      setConsultations([
+        { id: "demo-1", symptoms: "Fever, Cough", status: "completed", created_at: new Date().toISOString() },
+        { id: "demo-2", symptoms: "Headache", status: "pending", created_at: new Date(Date.now() - 86400000).toISOString() },
+      ]);
+      return;
+    }
     const { data, error } = await supabase
       .from("consultations")
       .select("*")
@@ -88,6 +99,13 @@ const PatientDashboard = () => {
   };
 
   const loadAppointments = async () => {
+    if (!user) {
+      setAppointments([
+        { id: "apt-1", doctor_id: "doc-1", appointment_type: "Virtual", appointment_date: new Date(Date.now() + 86400000).toISOString(), status: "confirmed", consultation_fee: 500, created_at: new Date().toISOString() },
+        { id: "apt-2", doctor_id: "doc-2", appointment_type: "In-Person", appointment_date: new Date(Date.now() + 172800000).toISOString(), status: "pending", consultation_fee: 1000, created_at: new Date().toISOString() },
+      ]);
+      return;
+    }
     const { data, error } = await supabase
       .from("appointments")
       .select("*")
@@ -100,13 +118,13 @@ const PatientDashboard = () => {
   };
 
   useEffect(() => {
-    if (user) {
+    if (!loading) {
       loadConsultations();
       loadAppointments();
       loadUserData();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  }, [user, loading]);
 
   const symptomSchema = z.object({
     symptoms: z.string()
@@ -805,7 +823,7 @@ provider with any questions regarding a medical condition.
                   <Shield className="h-5 w-5 text-primary" />
                   Government ID Verification
                 </h3>
-                {user && <HealthIDVerification userId={user.id} />}
+                <HealthIDVerification userId={user?.id || "demo-user"} />
               </div>
 
               {/* ABHA Integration */}
@@ -814,7 +832,7 @@ provider with any questions regarding a medical condition.
                   <CreditCard className="h-5 w-5 text-primary" />
                   ABHA Health ID Integration
                 </h3>
-                {user && <ABHAIntegration userId={user.id} />}
+                <ABHAIntegration userId={user?.id || "demo-user"} />
               </div>
             </div>
           </TabsContent>
@@ -850,7 +868,7 @@ provider with any questions regarding a medical condition.
               <Calendar className="h-5 w-5 text-primary" />
               Book Appointment
             </h3>
-            {user && <AppointmentBooking userId={user.id} />}
+              <AppointmentBooking userId={user?.id || "demo-user"} />
           </div>
 
           {/* Hospitals Section */}
@@ -869,11 +887,7 @@ provider with any questions regarding a medical condition.
               Upload Documents
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {user && (
-                <>
-                  <PrescriptionUpload userId={user.id} />
-                </>
-              )}
+              <PrescriptionUpload userId={user?.id || "demo-user"} />
             </div>
           </div>
         </div>
