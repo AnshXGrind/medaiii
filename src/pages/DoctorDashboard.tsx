@@ -134,7 +134,6 @@ const DoctorDashboard = () => {
         todayConsultations: mockConsultations.filter(c => 
           new Date(c.created_at).toDateString() === today
         ).length,
-        pending: mockConsultations.filter(c => c.status === 'pending').length,
         completed: mockConsultations.filter(c => c.status === 'completed').length
       }));
       return;

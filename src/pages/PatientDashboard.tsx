@@ -60,7 +60,7 @@ const PatientDashboard = () => {
   const [patientName, setPatientName] = useState<string>("");
   const [villageModeEnabled, setVillageModeEnabled] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("home");
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const navigate = useNavigate();
   const { t } = useLanguage();
 

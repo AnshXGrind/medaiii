@@ -20,10 +20,10 @@ const Footer = () => {
             <p className="text-sm text-muted-foreground">
               Empowering Every Voice with AI Healthcare
             </p>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Mail className="h-4 w-4" />
-              <a href="mailto:team.medaid@gmail.com" className="hover:text-primary transition-smooth">
-                team.medaid@gmail.com
+             <p style={{ fontFamily: 'Orbitron, sans-serif' }} className="text-xl tracking-widest text-primary font-bold mt-1">velarix</p>
+            <div className="flex items-center gap-4 mt-2">
+              <a href="https://github.com/AnshXGrind" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-smooth flex items-center gap-1">
+                <Github className="h-4 w-4" /> GitHub
               </a>
             </div>
           </div>
@@ -33,7 +33,7 @@ const Footer = () => {
             <h3 className="font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <Link to="/" className="text-sm text-muted-foreground hover:text-primary transition-smooth">
+                <Link to="/home" className="text-sm text-muted-foreground hover:text-primary transition-smooth">
                   Home
                 </Link>
               </li>
@@ -133,11 +133,7 @@ const Footer = () => {
           <p>© {new Date().getFullYear()} MedAid. All rights reserved.</p>
           <div className="flex flex-col items-center gap-1 mt-2">
             <p>built by ❤️ for Indian Healthcare by Saksham Garg</p>
-            <p style={{ fontFamily: 'Orbitron, sans-serif' }} className="text-xl tracking-widest text-primary font-bold mt-1">velarix</p>
-            <div className="flex items-center gap-4 mt-2">
-              <a href="https://github.com/AnshXGrind" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-smooth flex items-center gap-1">
-                <Github className="h-4 w-4" /> GitHub
-              </a>
+           
               <a href="mailto:grgsaksham25@gmail.com" className="hover:text-primary transition-smooth flex items-center gap-1">
                 <Mail className="h-4 w-4" /> contact: grgsaksham25@gmail.com
               </a>
