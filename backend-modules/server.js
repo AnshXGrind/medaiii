@@ -71,8 +71,12 @@ app.use((req, res) => {
 
 // Start Server
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`🚀 MedAid Backend Modules Server running on port ${PORT}`);
-  console.log(`📍 API URL: http://localhost:${PORT}/api`);
-  console.log(`🏥 Health Check: http://localhost:${PORT}/api/health`);
-});
+if (process.env.NODE_ENV !== 'production' || process.env.RUN_LOCAL) {
+  app.listen(PORT, () => {
+    console.log(`🚀 MedAid Backend Modules Server running on port ${PORT}`);
+    console.log(`📍 API URL: http://localhost:${PORT}/api`);
+    console.log(`🏥 Health Check: http://localhost:${PORT}/api/health`);
+  });
+}
+
+module.exports = app;

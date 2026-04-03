@@ -20,7 +20,7 @@ const Footer = () => {
             <p className="text-sm text-muted-foreground">
               Empowering Every Voice with AI Healthcare
             </p>
-             <p style={{ fontFamily: 'Orbitron, sans-serif' }} className="text-xl tracking-widest text-primary font-bold mt-1">velarix</p>
+             <p style={{ fontFamily: 'Orbitron, sans-serif' }} className="text-xl tracking-widest text-primary font mt-1">velarix</p>
             <div className="flex items-center gap-4 mt-2">
               <a href="https://github.com/AnshXGrind" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-smooth flex items-center gap-1">
                 <Github className="h-4 w-4" /> GitHub
